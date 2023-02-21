@@ -3,6 +3,7 @@ package com.rating.controller;
 import com.rating.entities.Rating;
 import com.rating.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class RatingController {
     }
 
 
+    @PreAuthorize("hasAuthority('SCOPE_internal') || hasAuthority('Admin')")
     @GetMapping("/get-by-userId")
     public List<Rating> getRatingsByUserId(@RequestParam("userId") String userId){
         return ratingService.getRatingByUserId(userId);
